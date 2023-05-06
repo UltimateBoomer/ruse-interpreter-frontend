@@ -7,8 +7,9 @@ export default function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <Ruse/>
+        <h1>Ruse Interpreter</h1>
       </header>
+      <Ruse />
     </div>
   );
 }

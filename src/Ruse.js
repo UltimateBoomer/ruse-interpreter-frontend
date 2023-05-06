@@ -25,7 +25,7 @@ export default function Ruse() {
         <input type='text' onChange={e => setExp(e.target.value)}/>
         <button onClick={handleRun}>Run</button>
       </div>
-      <p>{result}</p>
+      <p role='paragraph' >{result}</p>
     </div>
   );
 };
