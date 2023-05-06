@@ -1,4 +1,7 @@
 import { useState } from "react";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
+import { Form } from "react-bootstrap";
 
 export default function Ruse() {
   const [exp, setExp] = useState("");
@@ -22,8 +25,11 @@ export default function Ruse() {
   return (
     <div>
       <div>
-        <input type='text' onChange={e => setExp(e.target.value)}/>
-        <button onClick={handleRun}>Run</button>
+        <InputGroup>
+          <InputGroup.Text>Interp</InputGroup.Text>
+          <Form.Control onChange={e => setExp(e.target.value)}/>
+          <Button onClick={handleRun}>Run</Button>
+        </InputGroup>
       </div>
       <p role='paragraph' >{result}</p>
     </div>

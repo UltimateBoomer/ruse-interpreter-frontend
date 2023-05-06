@@ -2,14 +2,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Ruse from './Ruse';
+import Container from 'react-bootstrap/Container';
 
 export default function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1>Ruse Interpreter</h1>
-      </header>
+    <Container className="p-3">
+      <h1>Ruse Interpreter</h1>
       <Ruse />
-    </div>
+    </Container>
   );
 }
