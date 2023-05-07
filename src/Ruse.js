@@ -18,12 +18,16 @@ export default function Ruse() {
     fetch('/api/ruse', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({exp: exp})
+      body: JSON.stringify({
+        lang: 'FAUX_RACKET',
+        exp: exp
+      })
     })
       .then(response => {
         if (response.ok) {
           return response.json();
         } else {
+          console.error('Interp error');
           setResult('Interp encountered an error');
         }
       })
