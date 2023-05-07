@@ -7,6 +7,12 @@ export default function Ruse() {
   const [exp, setExp] = useState("");
   const [result, setResult] = useState("");
 
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      handleRun();
+    }
+  }
+
   function handleRun() {
     console.log(`Run: ${exp}`);
     fetch('/api/ruse', {
@@ -14,7 +20,13 @@ export default function Ruse() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({exp: exp})
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          setResult('Interp encountered an error');
+        }
+      })
       .then(data => {
         const res = data.result;
         console.log(`Result: ${res}`);
@@ -27,7 +39,7 @@ export default function Ruse() {
       <div>
         <InputGroup>
           <InputGroup.Text>Interp</InputGroup.Text>
-          <Form.Control onChange={e => setExp(e.target.value)}/>
+          <Form.Control onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
           <Button onClick={handleRun}>Run</Button>
         </InputGroup>
       </div>
