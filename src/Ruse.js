@@ -1,11 +1,25 @@
-import { useState } from "react";
-import InputGroup from "react-bootstrap/InputGroup";
+import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Form } from "react-bootstrap";
+import FormControl from "react-bootstrap/FormControl";
+import FormSelect from "react-bootstrap/FormSelect";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Ruse() {
   const [exp, setExp] = useState("");
   const [result, setResult] = useState("");
+  const [langs, setLangs] = useState([]);
+  const selectedLang = useRef("");
+
+  useEffect(() => {
+    fetch('/api/ruse/langs')
+      .then(response => response.json())
+      .then(json => {
+        console.log(`Available lang: ${json}`);
+        setLangs(json);
+        selectedLang.current = json[0];
+      });
+  }, []);
+    
 
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
@@ -15,11 +29,11 @@ export default function Ruse() {
 
   function handleRun() {
     console.log(`Run: ${exp}`);
-    fetch('/api/ruse', {
+    fetch('/api/ruse/interp', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        lang: 'FAUX_RACKET',
+        lang: selectedLang.current,
         exp: exp
       })
     })
@@ -27,26 +41,30 @@ export default function Ruse() {
         if (response.ok) {
           return response.json();
         } else {
-          console.error('Interp error');
-          setResult('Interp encountered an error');
+          return Promise.reject(response);
         }
       })
       .then(data => {
         const res = data.result;
         console.log(`Result: ${res}`);
         setResult(res);
+      })
+      .catch(err => {
+        setResult("Interp encountered an error");
       });
   }
 
   return (
     <div>
-      <div>
-        <InputGroup>
-          <InputGroup.Text>Interp</InputGroup.Text>
-          <Form.Control onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
-          <Button onClick={handleRun}>Run</Button>
-        </InputGroup>
-      </div>
+      <InputGroup>
+        <FormSelect defaultValue={selectedLang} onChange={e => selectedLang.current = e}>
+          {langs.map((e, i) => (
+            <option key={i}>{e}</option>
+          ))}
+        </FormSelect>
+        <FormControl onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
+        <Button onClick={handleRun}>Run</Button>
+      </InputGroup>
       <p role='paragraph' >{result}</p>
     </div>
   );
