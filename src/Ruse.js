@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 export default function Ruse() {
   const [exp, setExp] = useState("");
   const [result, setResult] = useState("");
+  const [isOk, setIsOk] = useState(true);
   const [langs, setLangs] = useState([]);
   const [selectedLang, setSelectedLang] = useState("");
 
@@ -49,9 +50,11 @@ export default function Ruse() {
         const res = data.result;
         console.log(`Result: ${res}`);
         setResult(res);
+        setIsOk(true);
       })
       .catch(err => {
         setResult("Interp encountered an error");
+        setIsOk(false);
       });
   }
 
@@ -78,7 +81,7 @@ export default function Ruse() {
         <Button onClick={handleRun}>Run</Button>
       </FormGroup>
       <Typography
-        sx={{fontFamily: "monospace"}}
+        sx={{fontFamily: "monospace", color: isOk ? "" : "red"}}
       >
         {result}
       </Typography>
