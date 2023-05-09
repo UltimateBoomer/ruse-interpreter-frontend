@@ -1,4 +1,4 @@
-import { Button, FormControl, FormGroup, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, FormControl, FormGroup, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 // import FormControl from "react-bootstrap/FormControl";
@@ -63,16 +63,25 @@ export default function Ruse() {
           value={selectedLang}
           onChange={e => setSelectedLang(e.target.value)}
         >
-          {langs.map((l, i) => (
+          {langs.map(l => (
             <MenuItem value={l}>{l}</MenuItem>
           ))}
         </Select>
       </FormControl>
       <FormGroup>
-        <TextField onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
+        <TextField
+          placeholder="Enter code here"
+          autoFocus
+          inputProps={{style: {fontFamily: "monospace"}}}
+          onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}
+        />
         <Button onClick={handleRun}>Run</Button>
       </FormGroup>
-      <p role="paragraph" >{result}</p>
+      <Typography
+        sx={{fontFamily: "monospace"}}
+      >
+        {result}
+      </Typography>
     </div>
   );
 };
