@@ -1,8 +1,9 @@
 // import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Container } from '@mui/material';
 import Ruse from './Ruse';
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 import { useEffect } from 'react';
 
 export default function App() {
@@ -11,7 +12,7 @@ export default function App() {
   })
 
   return (
-    <Container className="p-3">
+    <Container maxWidth="sm">
       <h1>Ruse Interpreter</h1>
       <Ruse />
     </Container>

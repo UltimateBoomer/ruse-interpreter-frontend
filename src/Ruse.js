@@ -1,8 +1,9 @@
+import { Button, ButtonGroup, FormGroup, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import Button from "react-bootstrap/Button";
-import FormControl from "react-bootstrap/FormControl";
-import FormSelect from "react-bootstrap/FormSelect";
-import InputGroup from "react-bootstrap/InputGroup";
+// import Button from "react-bootstrap/Button";
+// import FormControl from "react-bootstrap/FormControl";
+// import FormSelect from "react-bootstrap/FormSelect";
+// import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Ruse() {
   const [exp, setExp] = useState("");
@@ -56,15 +57,15 @@ export default function Ruse() {
 
   return (
     <div>
-      <InputGroup>
-        <FormSelect defaultValue={selectedLang} onChange={e => selectedLang.current = e}>
+      <FormGroup>
+        <ButtonGroup variant="contained" defaultValue={selectedLang}>
           {langs.map((e, i) => (
-            <option key={i}>{e}</option>
+            <Button key={i} onClick={() => selectedLang.current = e}>{e}</Button>
           ))}
-        </FormSelect>
-        <FormControl onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
+        </ButtonGroup>
+        <TextField onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
         <Button onClick={handleRun}>Run</Button>
-      </InputGroup>
+      </FormGroup>
       <p role='paragraph' >{result}</p>
     </div>
   );
