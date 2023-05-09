@@ -1,9 +1,5 @@
-// import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Container, Typography } from "@mui/material";
 import Ruse from "./Ruse";
-// import Container from "react-bootstrap/Container";
 import { useEffect } from "react";
 
 export default function App() {
