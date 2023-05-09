@@ -10,15 +10,15 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('displays result', async () => {
+test("displays result", async () => {
   server.use(
-    rest.get('/api/ruse/langs', (req, res, ctx) => {
+    rest.get("/api/ruse/langs", (req, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json(["A"])
       );
     }),
-    rest.post('/api/ruse/interp', (req, res, ctx) => {
+    rest.post("/api/ruse/interp", (req, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json({
@@ -31,8 +31,8 @@ test('displays result', async () => {
   render(<Ruse />);
   
 
-  await userEvent.type(screen.getByRole('textbox'), 'test');
-  await userEvent.click(screen.getByText('Run'));
+  await userEvent.type(screen.getByRole("textbox"), "test");
+  await userEvent.click(screen.getByText("Run"));
 
-  expect(screen.getByRole('paragraph')).toHaveTextContent('result');
+  expect(screen.getByRole("paragraph")).toHaveTextContent("result");
 })

@@ -1,10 +1,10 @@
-// import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+// import "./App.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Container } from '@mui/material';
-import Ruse from './Ruse';
-// import Container from 'react-bootstrap/Container';
-import { useEffect } from 'react';
+import { Container, Typography } from "@mui/material";
+import Ruse from "./Ruse";
+// import Container from "react-bootstrap/Container";
+import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
@@ -12,8 +12,10 @@ export default function App() {
   })
 
   return (
-    <Container maxWidth="sm">
-      <h1>Ruse Interpreter</h1>
+    <Container maxWidth="sm" sx={{my: 4}}>
+      <Typography variant="h4" sx={{my: 2}}>
+        Ruse Interpreter
+      </Typography>
       <Ruse />
     </Container>
   );

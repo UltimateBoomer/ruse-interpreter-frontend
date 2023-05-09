@@ -1,5 +1,5 @@
-import { Button, ButtonGroup, FormGroup, TextField } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { Button, FormControl, FormGroup, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 // import FormControl from "react-bootstrap/FormControl";
 // import FormSelect from "react-bootstrap/FormSelect";
@@ -9,32 +9,32 @@ export default function Ruse() {
   const [exp, setExp] = useState("");
   const [result, setResult] = useState("");
   const [langs, setLangs] = useState([]);
-  const selectedLang = useRef("");
+  const [selectedLang, setSelectedLang] = useState("");
 
   useEffect(() => {
-    fetch('/api/ruse/langs')
+    fetch("/api/ruse/langs")
       .then(response => response.json())
       .then(json => {
         console.log(`Available lang: ${json}`);
         setLangs(json);
-        selectedLang.current = json[0];
+        setSelectedLang(json[0]);
       });
   }, []);
     
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleRun();
     }
   }
 
   function handleRun() {
     console.log(`Run: ${exp}`);
-    fetch('/api/ruse/interp', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+    fetch("/api/ruse/interp", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        lang: selectedLang.current,
+        lang: selectedLang,
         exp: exp
       })
     })
@@ -57,16 +57,22 @@ export default function Ruse() {
 
   return (
     <div>
-      <FormGroup>
-        <ButtonGroup variant="contained" defaultValue={selectedLang}>
-          {langs.map((e, i) => (
-            <Button key={i} onClick={() => selectedLang.current = e}>{e}</Button>
+      <FormControl variant="standard" sx={{m: 1, minWidth: 200}}>
+        <InputLabel>Language</InputLabel>
+        <Select
+          value={selectedLang}
+          onChange={e => setSelectedLang(e.target.value)}
+        >
+          {langs.map((l, i) => (
+            <MenuItem value={l}>{l}</MenuItem>
           ))}
-        </ButtonGroup>
+        </Select>
+      </FormControl>
+      <FormGroup>
         <TextField onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}/>
         <Button onClick={handleRun}>Run</Button>
       </FormGroup>
-      <p role='paragraph' >{result}</p>
+      <p role="paragraph" >{result}</p>
     </div>
   );
 };
