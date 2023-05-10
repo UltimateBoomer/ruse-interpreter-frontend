@@ -15,6 +15,9 @@ export default function Ruse() {
         console.log(`Available lang: ${json}`);
         setLangs(json);
         setSelectedLang(json[0]);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, []);
     
@@ -62,8 +65,8 @@ export default function Ruse() {
           value={selectedLang}
           onChange={e => setSelectedLang(e.target.value)}
         >
-          {langs.map(l => (
-            <MenuItem value={l}>{l}</MenuItem>
+          {langs.map((l, i) => (
+            <MenuItem key={i} value={l}>{l}</MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -77,6 +80,7 @@ export default function Ruse() {
         <Button onClick={handleRun}>Run</Button>
       </FormGroup>
       <Typography
+        role="paragraph"
         sx={{fontFamily: "monospace", color: isOk ? "" : "red"}}
       >
         {result}
