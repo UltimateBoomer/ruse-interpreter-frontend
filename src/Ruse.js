@@ -29,7 +29,7 @@ export default function Ruse() {
   }
 
   function handleRun() {
-    console.log(`Run: ${exp}`);
+    var res;
     fetch("/api/ruse/interp", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -39,17 +39,17 @@ export default function Ruse() {
       })
     })
       .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
+        res = response;
+        return response.json();
       })
       .then(data => {
-        const res = data.result;
-        console.log(`Result: ${res}`);
-        setResult(res);
-        setIsOk(true);
+        if (res.ok) {
+          setResult(data.result);
+          setIsOk(true);
+        } else {
+          setResult(`Interp error: ${data.message}`)
+          setIsOk(false);
+        }
       })
       .catch(err => {
         setResult("Interp encountered an error");
