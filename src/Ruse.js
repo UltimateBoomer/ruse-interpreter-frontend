@@ -8,6 +8,7 @@ export default function Ruse() {
   const [langs, setLangs] = useState([]);
   const [selectedLang, setSelectedLang] = useState("");
 
+  // Fetch languages
   useEffect(() => {
     fetch("/api/ruse/langs")
       .then(response => response.json())
@@ -23,12 +24,14 @@ export default function Ruse() {
     
 
   function handleKeyDown(event) {
+    // Make enter key execute code
     if (event.key === "Enter") {
       handleRun();
     }
   }
 
   function handleRun() {
+    // Make API request
     var res;
     fetch("/api/ruse/interp", {
       method: "POST",
@@ -37,21 +40,23 @@ export default function Ruse() {
         lang: selectedLang,
         exp: exp
       })
-    })
-      .then(response => {
+    }).then(response => {
         res = response;
         return response.json();
       })
       .then(data => {
+        // Update result display
         if (res.ok) {
           setResult(data.result);
           setIsOk(true);
         } else {
+          // Interp error
           setResult(`Interp error: ${data.message}`)
           setIsOk(false);
         }
       })
       .catch(err => {
+        // Generic error
         setResult("Interp encountered an error");
         setIsOk(false);
       });

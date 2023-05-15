@@ -5,6 +5,7 @@ import { useEffect, useMemo } from "react";
 export default function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
+  // Use system theme (light/dark)
   const theme = useMemo(() => createTheme({
     palette: {
       mode: prefersDarkMode ? "dark" : "light"
