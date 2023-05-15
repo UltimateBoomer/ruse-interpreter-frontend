@@ -81,7 +81,7 @@ export default function Ruse() {
       </FormGroup>
       <Typography
         role="paragraph"
-        sx={{fontFamily: "monospace", color: isOk ? "" : "red"}}
+        sx={{fontFamily: "monospace", color: isOk ? "" : "red", whiteSpace: "break-spaces"}}
       >
         {result}
       </Typography>
