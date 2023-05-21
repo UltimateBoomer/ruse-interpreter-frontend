@@ -24,9 +24,10 @@ export default function Ruse() {
     
 
   function handleKeyDown(event) {
-    // Make enter key execute code
-    if (event.key === "Enter") {
+    // Make shift-enter execute code
+    if (event.key === "Enter" && event.shiftKey) {
       handleRun();
+      event.preventDefault();
     }
   }
 
@@ -79,6 +80,7 @@ export default function Ruse() {
         <TextField
           placeholder="Enter code here"
           autoFocus
+          multiline
           inputProps={{style: {fontFamily: "monospace"}}}
           onChange={e => setExp(e.target.value)} onKeyDown={handleKeyDown}
         />
